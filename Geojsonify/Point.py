@@ -4,7 +4,7 @@ import json
 # Geojson is a format for encoding geographical data into json (JavaScript Object Notation)
 
 # Create the geojsonify function that will convert python dictionaries to geojson objects
-def geojsonify(data):
+def point(data):
 
     # Initialize the features array
     features = []

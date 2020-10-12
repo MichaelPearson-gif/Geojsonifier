@@ -1,10 +1,15 @@
 import json
 
 # Create the geojsonify function with the line string format
+# Create the geojsonify function with the line string format
 def polygon(data):
     
     # Initialize the features array
     features = []
+    
+    # Create lists of possible names and abbrev. for latitude and longitude
+    latitude = ['lat', 'latitude', 'Lat', 'Latitude']
+    longitude = ['lng', 'longitude', 'Lng', 'Longitude']
     
     # Loop through the list of dictionaries
     for i in range(0, len(data)):
@@ -13,12 +18,18 @@ def polygon(data):
         coord1 = []
         coord2 = []
         
+        # Create functions to determine if the key is latitude or longitude
+        def is_coord(key, data_list):
+            for i in range(0, len(data_list)):
+                if key == data_list[i]:
+                    return data_list[i]
+        
         # Loop through each latitude and longitude and append them into the lists
         # Assigne key1 to the lat
         for key1, value1 in data[i].items():
             # Assigne key2 to lng
             for key2, value2 in data[i].items():
-                if key1 == 'lat' and key2 == 'lng':
+                if key1 == is_coord(key1, latitude) and key2 == is_coord(key2, longitude):
                     # Index through the list of values in each key
                     # lat and lng should have the same number of values in their lists,
                     # so I only need to do the range of the length of one of the lists.
@@ -39,7 +50,7 @@ def polygon(data):
         
         # Loop through the key and values to populatate a new dictionary called properties
         # Excluding the lat and lng
-        properties = {key: value for key, value in data[i].items() if key != "lat" and key != "lng"}
+        properties = {key: value for key, value in data[i].items() if key != is_coord(key, latitude) and key != is_coord(key, longitude)}
         
         # Create the key and values that will populate the features array
         my_features = {
@@ -59,7 +70,6 @@ def polygon(data):
         "type": "FeatureCollection",
         "features": features
     }
-    
     
     # Function returns the json object
     return json.dumps(new_data)

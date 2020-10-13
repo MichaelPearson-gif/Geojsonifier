@@ -8,8 +8,8 @@ def polygon(data):
     features = []
     
     # Create lists of possible names and abbrev. for latitude and longitude
-    latitude = ['lat', 'latitude', 'Lat', 'Latitude']
-    longitude = ['lng', 'longitude', 'Lng', 'Longitude']
+    latitude = ['lat', 'latitude', 'Lat', 'Latitude', 'LATITUDE']
+    longitude = ['lng', 'longitude', 'Lng', 'Longitude', 'LONGITUDE']
     
     # Loop through the list of dictionaries
     for i in range(0, len(data)):
